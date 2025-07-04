@@ -1,3 +1,4 @@
+"use client"
 import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import PasskeyModal from "@/components/PasskeyModal";
@@ -42,7 +43,7 @@ function HomeContent() {
 
 export default function Home() {
   return (
-    <Suspense>
+    <Suspense fallback={<div>Loading...</div>}>
       <HomeContent />
     </Suspense>
   );
