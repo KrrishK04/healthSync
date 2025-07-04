@@ -1,15 +1,12 @@
-'use client'; 
-
-import Image from "next/image";
-import Link from "next/link";
-import { useSearchParams } from "next/navigation"; 
 import { Suspense } from "react";
-
-import PatientForm from "@/components/forms/PatientForm";
-import Logo from "@/components/Logo";
+import { useSearchParams } from "next/navigation";
 import PasskeyModal from "@/components/PasskeyModal";
+import Logo from "@/components/Logo";
+import PatientForm from "@/components/forms/PatientForm";
+import Link from "next/link";
+import Image from "next/image";
 
-export default function Home() {
+function HomeContent() {
   const searchParams = useSearchParams();
   const isAdmin = searchParams.get('admin') === 'true';
 
@@ -20,13 +17,11 @@ export default function Home() {
       <section className="remove-scrollbar container my-auto">
         <div className="sub-container max-w-[496px]">
           <Logo />
-          
           <PatientForm />
-          
           <div className="text-14-regular mt-20 flex justify-between">
             <p className="justify-items-end text-dark-600 xl:text-left">
               © 2025 HealthSync
-            </p> 
+            </p>
             <Link href="/?admin=true" className="text-green-500">
               Admin
             </Link>
@@ -42,5 +37,13 @@ export default function Home() {
         className="side-img max-w-[50%]"
       />
     </div>
+  );
+}
+
+export default function Home() {
+  return (
+    <Suspense>
+      <HomeContent />
+    </Suspense>
   );
 }
