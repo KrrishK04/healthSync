@@ -1,95 +1,45 @@
+'use client'; 
+
 import Image from "next/image";
-import styles from "./page.module.css";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation"; 
+
+import PatientForm from "@/components/forms/PatientForm";
+import Logo from "@/components/Logo";
+import PasskeyModal from "@/components/PasskeyModal";
 
 export default function Home() {
-  return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const searchParams = useSearchParams();
+  const isAdmin = searchParams.get('admin') === 'true';
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
+  return (
+    <div className="flex h-screen max-h-screen">
+      {isAdmin && <PasskeyModal />}
+
+      <section className="remove-scrollbar container my-auto">
+        <div className="sub-container max-w-[496px]">
+          <Logo />
+          
+          <PatientForm />
+          
+          <div className="text-14-regular mt-20 flex justify-between">
+            <p className="justify-items-end text-dark-600 xl:text-left">
+              © 2025 HealthSync
+            </p> 
+            <Link href="/?admin=true" className="text-green-500">
+              Admin
+            </Link>
+          </div>
         </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </section>
+
+      <Image
+        src="/assets/images/onboarding-img.png"
+        height={1000}
+        width={1000}
+        alt="Patient onboarding"
+        className="side-img max-w-[50%]"
+      />
     </div>
   );
 }
